@@ -65,7 +65,6 @@ class MakeAdvancedQuery extends GeneratorCommand
     {
         if (! class_exists($modelClass = $this->parseModel($this->option('model')))) {
             $this->error('Model '.$this->option('model').' does not exist!');
-            exit;
         }
 
         return array_merge($replace, [

@@ -8,8 +8,6 @@ use Illuminate\Support\Traits\ForwardsCalls;
 
 abstract class QueryBuilder
 {
-    use ForwardsCalls;
-
     /**
      * Define Model class
      *
@@ -71,12 +69,6 @@ abstract class QueryBuilder
         $this->filterInstance = new $this->filter;
         $this->sortInstance = new $this->sort;
         $this->query = (new $this->model)->query();
-    }
-
-    public function __call($method, $arguments)
-    {
-        $this->forwardCallTo($this->query, $method, $arguments);
-        return $this;
     }
 
     public function validateResources() {
