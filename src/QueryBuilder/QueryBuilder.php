@@ -85,9 +85,9 @@ abstract class QueryBuilder
               '$model attribute not provided!'
             );
         }
-        if(!$this->query) {
+        if(!$this->filter) {
             throw  new AdvancedQueryException(
-                '$query attribute not provided'
+                '$filter attribute not provided'
             );
         }
         if(!$this->sort) {
