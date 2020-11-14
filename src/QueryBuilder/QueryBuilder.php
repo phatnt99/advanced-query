@@ -2,6 +2,7 @@
 
 namespace Phatnt99\AdvancedQuery\QueryBuilder;
 
+use Phatnt99\AdvancedQuery\Exceptions\AdvancedQueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Traits\ForwardsCalls;
 
@@ -60,9 +61,12 @@ abstract class QueryBuilder
 
     /**
      * QueryBuilder constructor.
+     *
+     * @throws \Phatnt99\AdvancedQuery\Exceptions\AdvancedQueryException
      */
     public function __construct()
     {
+        $this->validateResources();
         $this->request = app(Request::class);
         $this->filterInstance = new $this->filter;
         $this->sortInstance = new $this->sort;
@@ -73,6 +77,24 @@ abstract class QueryBuilder
     {
         $this->forwardCallTo($this->query, $method, $arguments);
         return $this;
+    }
+
+    public function validateResources() {
+        if(!$this->model) {
+            throw new AdvancedQueryException(
+              '$model attribute not provided!'
+            );
+        }
+        if(!$this->query) {
+            throw  new AdvancedQueryException(
+                '$query attribute not provided'
+            );
+        }
+        if(!$this->sort) {
+            throw new AdvancedQueryException(
+                '$sort attribute not provided'
+            );
+        }
     }
 
     /**
