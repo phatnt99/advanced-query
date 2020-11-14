@@ -101,11 +101,11 @@ abstract class QueryBuilder
      * Apply filter with attributes
      * i.e: ?filters[name]=John
      *
-     * @param array $customAttrs
-     * @param array $allows
+     * @param $customAttrs
+     * @param $allows
      * @return $this
      */
-    public function filter($customAttrs = [], $allows = [])
+    public function filter($customAttrs = null, $allows = null)
     {
         $attributes = $customAttrs ?? $this->request->input('filters', []);
         $this->filterInstance->setQuery($this->query)
@@ -119,11 +119,11 @@ abstract class QueryBuilder
      * Apply sort with attributes
      * i.e: ?sort=id,-name
      *
-     * @param array $customAttrs
-     * @param array $allows
+     * @param $customAttrs
+     * @param $allows
      * @return $this
      */
-    public function sort($customAttrs = [], $allows = [])
+    public function sort($customAttrs = null, $allows = null)
     {
         $attributes = $customAttrs ?? $this->request->input('sort');
         $this->sortInstance->setQuery($this->query)
