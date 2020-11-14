@@ -53,7 +53,7 @@ abstract class Filter
             $this->filterPartial($column, $value);
         } elseif (in_array($column, $this->filterDate) || array_key_exists($column, $this->filterDate)) {
             $this->filterDate($column, $value);
-        } elseif (in_array($column, $this->filters)) {
+        } elseif (array_key_exists($column, $this->filters)) {
             ($this->filters[$column])($value);
         };
     }

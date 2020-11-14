@@ -49,10 +49,11 @@ abstract class Sort
     {
         if (in_array($column, $this->defaultSorts) || array_key_exists($column, $this->convertSortAttribute()
                                                                                      ->toArray())) {
-            return $this->query->orderBy($column, $direction);
+            $this->query->orderBy($column, $direction);
         }
-
-        return ($this->sorts[$column])($direction);
+        if (array_key_exists($column, $this->sorts)) {
+            ($this->sorts[$column])($direction);
+        }
     }
 
     private function applyDefault()
