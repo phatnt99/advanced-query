@@ -13,7 +13,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "phatnt99\\advanced-query\\QueryServiceProvider"
+        "Phatnt99\\AdvancedQuery\\QueryServiceProvider"
       ]
     }
   },
