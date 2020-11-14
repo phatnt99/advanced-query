@@ -1,5 +1,6 @@
 # advanced-query
 A package provides an advanced query for Eloquent Laravel.
+[TOC]
 ## Requirements
 This package require:
 - PHP 7.2+
@@ -120,19 +121,19 @@ This is the class that binds the main functions of the package. You must define 
 * Your model class
 * @var string
 */
-protected $model = Staff::class;
+protected $model = User::class;
 
 /**
 * Your filter class
 * @var string
 */
-protected $filter = StaffFilter::class;
+protected $filter = UserFilter::class;
 
 /**
 * Your sort class
 * @var string
 */
-protected $sort = StaffSort::class;
+protected $sort = UserSort::class;
 ```
 If you use the full command (with --fs option and correct model) it will automatically bind these value for you (or just model class if not using --fs option).
 
@@ -151,21 +152,47 @@ public function index(UserQuery $query)
 }
 ```
 ### Allowed attributes
-In case you want to restrict only some attributes allowed to be filtered or sorted, pass these value to **allows** argument (the 2nd paramater)
+In case you want to restrict only some attributes allowed to be filtered or sorted, pass these attribute to **allows** argument (the 2nd paramater)
 ```php
    return response()->json(
 			$query->filter(null, ['id', 'name'])
 					->sort(null, ['created_at'])
 				->paginate());
 ```
+### Eloquent Query & Advanced Query
+You can use Eloquent methods (where, whereHas,...) directly with an instance of Query class but it will lost the chain (chaining methods). A better way, define your own method which use these Eloquent method and then return the Query instance
+```php
+// UserQuery
+
+/**
+* Advanced Query
+*/
+public function verifiedUser() {
+	$this->query->whereNotNull('email_verify_at');
+	return $this;
+}
+```
 ### Paginate
 I use default paginate of Eloquent model which allow you pass the index of expected page into ``paginate()`` (default is 1).
 ## Other usage
 You can use each feature dependently.
 ### Filter & Sort independent
-You must set the query attribute to use these independently. Example:
+You must set the query attribute to use these independently. Example (the same method for sort):
 ```php
-$filter = new \App\Queries\Filters\StaffFilter();
-$filter->setQuery(Staff::query());
+$filter = new \App\Queries\Filters\UserFilter();
+$filter->setQuery(User::query());
 ```
-The same method for sort.
+Instead of passing attributes (with value) into the query string, you can pass it into `setAllowAttrs` method:
+```php
+$filter = new \App\Queries\Filters\UserFilter();
+$filter->setQuery(User::query())
+	   ->setAllowAttrs(['name' => 'John'])
+	   ->getCollection();
+```
+Then you can easily get collection result with `getCollection` method.
+
+**Happy Coding!**
+# Contributing
+If you find some issue or want to make it better with your code, feel free to make PR or Issue :)
+# License
+The MIT License (MIT)
