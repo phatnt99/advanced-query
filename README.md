@@ -1,6 +1,6 @@
 # advanced-query
 A package provides an advanced query for Eloquent Laravel.
-[TOC]
+
 ## Requirements
 This package require:
 - PHP 7.2+
