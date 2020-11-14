@@ -20,6 +20,8 @@ class MakeSortQuery extends GeneratorCommand
      */
     protected $description = 'Make powerful filter query for Eloquent model';
 
+    protected $type = 'Sort';
+
     protected function getStub()
     {
         return __DIR__.'\stubs\sortquery.stub';

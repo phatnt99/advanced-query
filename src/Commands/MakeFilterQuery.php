@@ -20,6 +20,8 @@ class MakeFilterQuery extends GeneratorCommand
      */
     protected $description = 'Make powerful filter query for Eloquent model';
 
+    protected $type = 'Filter';
+
     protected function getStub()
     {
         return __DIR__.'\stubs\filterquery.stub';
