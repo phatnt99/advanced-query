@@ -35,11 +35,9 @@ abstract class Sort
     public function apply($attributes)
     {
         $this->addAttributeToSort($attributes);
-
         $this->convertSortAttribute()->each(function ($value, $key) {
             $this->sort($key, $value);
         });
-
         $this->applyDefault();
 
         return $this;
@@ -82,9 +80,11 @@ abstract class Sort
 
         return collect($convertedAttrs)
             ->mapWithKeys(function ($att) {
-                if ($this->allows && in_array($att, $this->allows)) {
-                    return [ltrim($att, '-') => $this->parseSortDirection($att)];
+                if ($this->allows && ! in_array(ltrim($att, '-'), $this->allows)) {
+                    return [];
                 }
+
+                return [ltrim($att, '-') => $this->parseSortDirection($att)];
             });
     }
 
