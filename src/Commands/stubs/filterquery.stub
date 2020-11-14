@@ -1,0 +1,22 @@
+<?php
+
+namespace {{namespace}};
+
+use Phatnt99\AdvancedQuery\Filter\Filter;
+
+class {{class}} extends Filter
+{
+    protected $filterPartial = [
+    ];
+
+    protected $filterExact = [
+    ];
+
+    protected $filterDate = [
+    ];
+
+    //protected function complex($value)
+    //{
+    // 		something more complex than exact, partial or date..
+    //}
+}

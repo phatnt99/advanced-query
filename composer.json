@@ -1,0 +1,28 @@
+{
+  "name": "phatnt99/advanced-query",
+  "description": "Powerful query for filter, sort and custom Eloquent query.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Phat Nguyen",
+      "email": "phatnguyen2499@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "phatnt99\\advanced-query\\QueryServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Phatnt99\\AdvancedQuery\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.2"
+  }
+}

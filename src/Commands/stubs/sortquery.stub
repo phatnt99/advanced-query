@@ -1,0 +1,12 @@
+<?php
+
+namespace {{namespace}};
+
+use Phatnt99\AdvancedQuery\Sort\Sort;
+
+class {{class}} extends Sort
+{
+    protected $defaultSorts = [
+        //'id' => SortDirection::DESCENDING,
+    ];
+}

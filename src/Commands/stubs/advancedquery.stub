@@ -1,0 +1,29 @@
+<?php
+
+namespace {{namespace}};
+
+use Phatnt99\AdvancedQuery\QueryBuilder\QueryBuilder;
+use {{useModel}};
+use {{useFilter}};
+use {{useSort}};
+
+class {{class}} extends QueryBuilder
+{
+    	/**
+    	 * Your model class
+         * @var string
+         */
+        protected $model = {{model}}::class;
+
+        /**
+         * Your filter class
+         * @var string
+         */
+        protected $filter = {{filter}}::class;
+
+        /**
+         * Your sort class
+         * @var string
+         */
+        protected $sort = {{sort}}::class;
+}
