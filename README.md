@@ -65,7 +65,7 @@ protected $filterDate = [
 ```
 It reduces time to write duplicate code and make the class where you perform some filter function more readable :)
 ### Filter date in range
-A little trick with date filter, if you want to filter date in range (from...to). Try that:
+A small tip with date filter, if you want to filter date in range (from...to). Try that:
 ```php
     protected $filterDate = [
         'from.created_at',
@@ -75,14 +75,97 @@ A little trick with date filter, if you want to filter date in range (from...to)
 ### Custom filter
 Sometimes your filter work with complicated logic (like filtering on a relationship attribute), the filter class help you custom your own function to perform complex filter
 ```php
-protected function complex($value)
+protected function project($projectId)
 {
-	something more complex than exact, partial or date..
+	return $this->query->whereHas('projects', function ($query) use ($projectId) {
+            $query->where('project_id', '=', $projectId);
+        });
 }
 ```
+Then use the function name like attribute name in query string.
 ### Using in query string
 You can pass the attribute along with value want to be filter by **filters** key:
 ```
 GET /users?filters[name]=John&filters[created_at]=2020-02-02
 ```
 ## Sort
+### Default sort
+The concrete Sort class has attribute defaultSort which let you define sortable attributes.
+```php
+protected $defaultSorts = [
+        'full_name',
+        'nick_name',
+        'dob',
+        'email',
+        'phone_number',
+];
+```
+For attribute has constant direction, use enum SortDirection for its value
+```php
+protected $defaultSorts = [
+		...
+        'dob' => SortDirection::DESCENDING,
+];
+```
+**Note**: If the attribute has both a default direction (like above) and a direction in the query string, it will treat direction in the query string as a higher priority.
+### Using in query string
+I use **sort** key with prefix - to perform descending sort (none is ascending):
+```
+GET /users?sort=id,-dob
+```
+## Query
+This is the class that binds the main functions of the package. You must define some important attributes that point to dependendcy classes
+```php
+/**
+* Your model class
+* @var string
+*/
+protected $model = Staff::class;
+
+/**
+* Your filter class
+* @var string
+*/
+protected $filter = StaffFilter::class;
+
+/**
+* Your sort class
+* @var string
+*/
+protected $sort = StaffSort::class;
+```
+If you use the full command (with --fs option and correct model) it will automatically bind these value for you (or just model class if not using --fs option).
+
+
+Just specify the dependent classes (with the full handler in each dependency) and you can use the main power of the package.
+
+```php
+// UserController
+
+public function index(UserQuery $query)
+{
+   return response()->json(
+			$query->filter()
+					->sort()
+				->paginate());
+}
+```
+### Allowed attributes
+In case you want to restrict only some attributes allowed to be filtered or sorted, pass these value to **allows** argument (the 2nd paramater)
+```php
+   return response()->json(
+			$query->filter(null, ['id', 'name'])
+					->sort(null, ['created_at'])
+				->paginate());
+```
+### Paginate
+I use default paginate of Eloquent model which allow you pass the index of expected page into ``paginate()`` (default is 1).
+## Other usage
+You can use each feature dependently.
+### Filter & Sort independent
+You must set the query attribute to use these independently. Example:
+```php
+$filter = new \App\Queries\Filters\StaffFilter();
+$filter->setQuery(Staff::query());
+```
+The same method for sort.
