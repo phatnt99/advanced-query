@@ -93,7 +93,7 @@ GET /users?filters[name]=John&filters[created_at]=2020-02-02
 ```
 ## Sort
 ### Default sort
-The concrete Sort class has attribute defaultSort which let you define sortable attributes.
+The concrete Sort class has attribute defaultSorts which let you define sortable attributes.
 ```php
 protected $defaultSorts = [
         'full_name',
