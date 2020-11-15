@@ -149,7 +149,7 @@ public function index(UserQuery $query)
 {
    return response()->json(
 			$query->filter()
-					->sort()
+				->sort()
 				->paginate());
 }
 ```
@@ -158,7 +158,7 @@ In case you want to restrict only some attributes allowed to be filtered or sort
 ```php
    return response()->json(
 			$query->filter(null, ['id', 'name'])
-					->sort(null, ['created_at'])
+				->sort(null, ['created_at'])
 				->paginate());
 ```
 ### Eloquent Query & Advanced Query
