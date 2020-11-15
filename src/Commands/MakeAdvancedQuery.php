@@ -28,7 +28,10 @@ class MakeAdvancedQuery extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'\stubs\advancedquery.stub';
+        if ($this->option('fs')) {
+            return __DIR__.'\stubs\advancedquery.stub';
+        }
+        return __DIR__.'\stubs\advancedquery-plain.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

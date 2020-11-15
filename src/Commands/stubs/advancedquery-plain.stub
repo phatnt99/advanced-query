@@ -1,0 +1,16 @@
+<?php
+
+namespace {{namespace}};
+
+use Phatnt99\AdvancedQuery\QueryBuilder\QueryBuilder;
+use {{useModel}};
+
+class {{class}} extends QueryBuilder
+{
+    	/**
+    	 * Your model class
+         * @var string
+         */
+        protected $model = {{model}}::class;
+
+}
