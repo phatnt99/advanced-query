@@ -32,10 +32,12 @@ The above command will create 3 files in `App\Queries`:
 -Queries
 |
 --Filters
- |
- --UserFilter.php
- |
- --UserSort.php
+| |
+| --UserFilter.php
+| |
+--Sorts
+| |
+| --UserSort.php
 |
 --UserQuery.php
 ```
@@ -175,7 +177,7 @@ public function verifiedUser() {
 ### Paginate
 I use default paginate of Eloquent model which allow you pass the index of expected page into ``paginate()`` (default is 1).
 ## Other usage
-You can use each feature dependently.
+You can use each feature independently.
 ### Filter & Sort independent
 You must set the query attribute to use these independently. Example (the same method for sort):
 ```php
@@ -191,6 +193,11 @@ $filter->setQuery(User::query())
 ```
 Then you can easily get collection result with `getCollection` method.
 
+By the way, the package provides 2 separate commands for filter and sort:
+```
+php artisan make:filter UserFilter
+php artisan make:sort UserSort
+```
 **Happy Coding!**
 # Contributing
 If you find some issue or want to make it better with your code, feel free to make PR or Issue :)
